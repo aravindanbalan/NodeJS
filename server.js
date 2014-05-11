@@ -11,6 +11,7 @@
 var http = require('http');
 var router = require('./router');
 var urlObject = require("url");
+var port = process.env.PORT || 8000;
 
 /* server code */
 function startServer(route) {
@@ -24,7 +25,7 @@ function startServer(route) {
 
     }
 
-    http.createServer(onRequest).listen(1337);
+    http.createServer(onRequest).listen(port);
     console.log('Server running at http://127.0.0.1:1337/');
 }
 
