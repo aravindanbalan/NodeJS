@@ -20,13 +20,13 @@ function startServer(route) {
     mongoose_init();
     function onRequest(request, response) {
         var pathname = urlObject.parse(request.url).pathname;
-        route(pathname);
-        if(test)
-            response.write("DB connection successful\n");
+        route(pathname);        
         console.log("Request for " + pathname + " received.");
         response.writeHead(200, {"Content-Type": "text/plain"});
         response.write("Hello World, this is my first node JS application\n");
         response.write("Request for path "+ pathname);
+        if(test)
+            response.write("DB connection successful\n");
         response.end();
 
     }
@@ -43,6 +43,7 @@ mongoose_init = function(){
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function callback () {
         // yay!
+        console.log("...............Connected to db.................");
         test = true;
     });
 
