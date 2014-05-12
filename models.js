@@ -22,7 +22,7 @@ var userSchema = mongoose.Schema({
     }]
 });
 
-var chatHistory = mongoose.Schema({
+var chatHistorySchema = mongoose.Schema({
 
 	userId : {
     		type: mongoose.Schema.ObjectId, 
@@ -39,7 +39,7 @@ var chatHistory = mongoose.Schema({
 
 var Group = mongoose.model('Group', groupsSchema);
 var User = mongoose.model('User', userSchema);
-var Chat = mongoose.model('Chat', chatSchema);
+var Chat = mongoose.model('Chat', chatHistorySchema);
 
 exports.Group = Group;
 exports.User = User;
