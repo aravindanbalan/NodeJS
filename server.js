@@ -1,23 +1,24 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Aravindan
- * Date: 5/9/14
- * Time: 1:36 PM
- * To change this template use File | Settings | File Templates.
- */
+
 
 /* imports */
 
 var http = require('http');
 var mongoose = require('mongoose');
 var router = require('./router');
+var models = require('./models');
 var urlObject = require("url");
 var port = process.env.PORT || 8000;
-var test = false;
+var db;
+
+//var group = new models.Group({})
+//group.save(function(err, group)
+//{
+    
+//});
 
 /* server code */
 function startServer(route) {
-    mongoose_init();
+    
     function onRequest(request, response) {
         var pathname = urlObject.parse(request.url).pathname;
         route(pathname);        
@@ -25,30 +26,46 @@ function startServer(route) {
         response.writeHead(200, {"Content-Type": "text/plain"});
         response.write("Hello World, this is my first node JS application\n");
         response.write("Request for path "+ pathname);
-        if(test)
-            response.write("DB connection successful\n");
+        response.write("DB connection successful\n");
         response.end();
 
     }
-
-    http.createServer(onRequest).listen(port);
-    console.log('Server running at http://127.0.0.1:1337/');
+    function mongooseDone(err)
+    {
+        http.createServer(onRequest).listen(port);        
+    }
+    mongoose_init(mongooseDone);
 }
 
-mongoose_init = function(){
-    var mongoose = require('mongoose');
+mongoose_init = function(callback){
+
     mongoose.connect('mongodb://aravindan:niji@ds043329.mongolab.com:43329/nijidb');
 
-    var db = mongoose.connection;
+    db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function callback () {
         // yay!
         console.log("...............Connected to db.................");
-        test = true;
+        var group = new models.Group({groupName : "Dummy Group", members : null})
+        group.save(function(err, group)
+        {
+              console.log("...............created a dummy group in DB.................");  
+        });
+        callback(null);
     });
 
+}
+
+getGroupList = function()
+{
 
 }
+
+getChatHistory = function()
+{
+    
+}
+
 
 //exports.start = startServer;
 
