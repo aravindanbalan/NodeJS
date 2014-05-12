@@ -17,6 +17,7 @@ var test = false;
 
 /* server code */
 function startServer(route) {
+    mongoose_init();
     function onRequest(request, response) {
         var pathname = urlObject.parse(request.url).pathname;
         route(pathname);
