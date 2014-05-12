@@ -20,7 +20,8 @@ function startServer(route) {
         route(pathname);
         console.log("Request for " + pathname + " received.");
         response.writeHead(200, {"Content-Type": "text/plain"});
-        response.write("Hello World, this is my first node JS application");
+        response.write("Hello World, this is my first node JS application\n");
+        response.write("Request for path "+ pathname);
         response.end();
 
     }
