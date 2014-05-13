@@ -36,6 +36,8 @@ startServer = function(route) {
                 if (err){ throw err; } 
                  console.log("**Printing grouplist**\n "+groups);
             
+                //process json properly - left out
+
                 var result = [];
                 for (var i = 0;i<groups.length;i++){
                     result.push({"groupName": groups[i].groupName});
