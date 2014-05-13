@@ -25,11 +25,13 @@ startServer = function(route) {
         var pathname = urlObject.parse(request.url).pathname;
         route(pathname);        
         console.log("Request for " + pathname + " received.");
-       response.writeHead(200, {"Content-Type": "text/html"});
-        response.write("Hello World, this is my first node JS application\n");
-        response.write("Request for path "+ pathname);
-        response.write("\nDB connection successful\n");
-    
+        if(pathname == "/")
+        {
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write("Hello World, this is my first node JS application\n");
+            response.write("Request for path "+ pathname);
+            response.write("\nDB connection successful\n");
+        }
         if(pathname == "/groupList"){
 
             groupList = models.Group.find('groupName', function (err, groups){
@@ -47,7 +49,7 @@ startServer = function(route) {
                 return result.toJSON();
             });
         
-        console.log("groupList   "+groupList);
+            console.log("groupList   "+groupList);
             response.writeHead(200, {"Content-Type": "application/json"});
             response.write(JSON.stringify(groupList));
             response.end();
