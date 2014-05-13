@@ -38,15 +38,15 @@ startServer = function(route) {
             
                 var result = [];
                 for (var i = 0;i<groups.length;i++){
-                    result.push({groupName: groups[i].groupName});
+                    result.push({"groupName": groups[i].groupName});
                     console.log(result);
                 }   
                 return result;
             });
         
-            response.writeHead(200, {"Content-Type": "application/json"});
-            response.write(JSON.stringify(groupList));
-            response.end();
+          //  response.writeHead(200, {"Content-Type": "application/json"});
+          //  response.write(JSON.stringify(groupList));
+         //   response.end();
         }
 
         if(pathname == "/chatHistory") getChatHistory();
