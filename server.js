@@ -27,10 +27,10 @@ startServer = function(route) {
         response.writeHead(200, {"Content-Type": "text/plain"});
         response.write("Hello World, this is my first node JS application\n");
         response.write("Request for path "+ pathname);
-        response.write("DB connection successful\n");
+        response.write("\nDB connection successful\n");
         response.end();
 
-        if(pathname == "/groupListDB") getGroupList();
+        if(pathname == "/groupList") getGroupList();
         if(pathname == "/chatHistory") getChatHistory();
 
     }
