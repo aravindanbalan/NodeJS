@@ -10,6 +10,7 @@ var urlObject = require("url");
 var port = process.env.PORT || 8000;
 var db;
 var groupListJSON;
+ var groupList;
 //var group = new models.Group({})
 //group.save(function(err, group)
 //{
@@ -31,14 +32,16 @@ startServer = function(route) {
        
         if(pathname == "/groupList"){
 
-            groupListJSON = getGroupList();
-            response.write(groupListJSON);
+            groupList = models.Group.find('groupName', function (err, groups){
+                if (err){ throw err; } 
+                console.log(groups);
+            });
+        
+            console.log("****************Printing grouplist**************\n "+groupList);
+        
+            response.write(groupList);
         }
         if(pathname == "/chatHistory") getChatHistory();
-
-
-
-
 
         response.end();
 
@@ -72,14 +75,6 @@ console.log(".....Inside Mongo Init........");
 getGroupList = function(){
 
     console.log("......Inside get Group List......");
-    var groupList;
-    groupList = models.Group.find('groupName', function (err, groups){
-            if (err){ throw err; } 
-            console.log(groups);
-            return groups;
-        });
-        console.log("****************Printing grouplist**************\n "+groupList);
-    return groupList;
 }
 
 getChatHistory = function(){
