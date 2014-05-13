@@ -35,6 +35,7 @@ function startServer(route) {
         http.createServer(onRequest).listen(port);        
     }
     mongoose_init(mongooseDone);
+console.log(".........................hello...............................");
 }
 
 mongoose_init = function(callback){
@@ -70,3 +71,4 @@ getChatHistory = function()
 //exports.start = startServer;
 
 startServer(router.route)
+console.log(".........................hi...............................");
