@@ -35,16 +35,19 @@ startServer = function(route) {
             groupList = models.Group.find('groupName', function (err, groups){
                 if (err){ throw err; } 
                  console.log("**Printing grouplist**\n "+groups);
-                
+            
+                var result = [];
                 for (var i = 0;i<groups.length;i++){
-                    console.log(groups[i].groupName);
+                    result.push({groupName: groups[i].groupName});
+                    console.log(result);
                 }   
+                return groupList;
             });
         
-           
         
-            //response.write(JSON.stringify(groupList));
+            response.write(JSON.stringify(groupList));
         }
+        
         if(pathname == "/chatHistory") getChatHistory();
 
         response.end();
