@@ -67,7 +67,6 @@ getChatHistory = function()
     
 }
 
-
 //exports.start = startServer;
 console.log(".....Starting Server........");
 startServer(router.route)
