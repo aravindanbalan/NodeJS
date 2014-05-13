@@ -25,7 +25,7 @@ startServer = function(route) {
         var pathname = urlObject.parse(request.url).pathname;
         route(pathname);        
         console.log("Request for " + pathname + " received.");
-        response.writeHead(200, {"Content-Type": "application/json"});
+       
        // response.write("Hello World, this is my first node JS application\n");
        // response.write("Request for path "+ pathname);
        // response.write("\nDB connection successful\n");
@@ -44,13 +44,14 @@ startServer = function(route) {
                 return result;
             });
         
-        
+            response.writeHead(200, {"Content-Type": "application/json"});
             response.write(JSON.stringify(groupList));
+            response.end();
         }
 
         if(pathname == "/chatHistory") getChatHistory();
 
-        response.end();
+        
 
     }
     mongooseDone = function(err) {
