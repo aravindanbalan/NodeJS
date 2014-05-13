@@ -47,7 +47,7 @@ mongoose_init = function(callback){
         // yay!
         console.log("...............Connected to db.................");
         var query = { groupName: 'Dummy Group' };
-        models.Group.findOneAndUpdate(group, {groupName: 'Dummy Group', members : null},{upsert: true,"new": true },function(err, group)
+        models.Group.findOneAndUpdate(query, {groupName: 'Dummy Group'},{upsert: true,"new": true },function(err, group)
         {
               console.log("...............created a dummy group in DB.................");  
         });
