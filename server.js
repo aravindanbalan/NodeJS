@@ -17,9 +17,9 @@ var db;
 //});
 
 /* server code */
-function startServer(route) {
+startServer = function(route) {
     console.log(".....Inside Start Server........");
-    function onRequest(request, response) {
+   onRequest = function(request, response) {
         console.log(".....Inside On Request........");
         var pathname = urlObject.parse(request.url).pathname;
         route(pathname);        
@@ -30,9 +30,12 @@ function startServer(route) {
         response.write("DB connection successful\n");
         response.end();
 
+        if(pathname == "/groupListDB") getGroupList();
+        if(pathname == "/chatHistory") getChatHistory();
+
     }
-    function mongooseDone(err)
-    {
+    mongooseDone = function(err) {
+
         console.log(".....Inside Mongoose done, Starting server ........");
         http.createServer(onRequest).listen(port);        
     }
@@ -47,23 +50,23 @@ console.log(".....Inside Mongo Init........");
     db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
    
-        console.log("...............Connected to db.................");
-        var query = { groupName: 'Dummy Group' };
-        models.Group.findOneAndUpdate(query, {groupName: 'Dummy Group'},{upsert: true,"new": true },function(err, group)
-        {
-              console.log("...............created a dummy group in DB.................");  
-        });
-        callback(null);
+    console.log("...............Connected to db.................");
+    var query = { groupName: 'Dummy Group' };
+    models.Group.findOneAndUpdate(query, {groupName: 'Dummy Group'},{upsert: true,"new": true },function(err, group)
+    {
+          console.log("...............created a dummy group in DB.................");  
+    });
+    callback(null);
 
 }
 
-getGroupList = function()
-{
+getGroupList = function(){
+
+    console.log("......Inside get Group List......");
 
 }
 
-getChatHistory = function()
-{
+getChatHistory = function(){
     
 }
 
