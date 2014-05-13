@@ -29,7 +29,7 @@ startServer = function(route) {
        // response.write("Hello World, this is my first node JS application\n");
        // response.write("Request for path "+ pathname);
        // response.write("\nDB connection successful\n");
-       
+    
         if(pathname == "/groupList"){
 
             groupList = models.Group.find('groupName', function (err, groups){
@@ -37,7 +37,7 @@ startServer = function(route) {
                 console.log(groups);
             });
         
-            console.log("****************Printing grouplist**************\n "+groupList["groupName"]);
+            console.log("****************Printing grouplist**************\n "+groupList[0]["groupName"]);
         
             //response.write(JSON.stringify(groupList));
         }
