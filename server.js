@@ -39,7 +39,7 @@ startServer = function(route) {
         
             console.log("****************Printing grouplist**************\n "+groupList);
         
-            response.write(groupList);
+            response.write(JSON.stringify(groupList));
         }
         if(pathname == "/chatHistory") getChatHistory();
 
