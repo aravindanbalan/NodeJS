@@ -31,6 +31,7 @@ startServer = function(route) {
             response.write("Hello World, this is my first node JS application\n");
             response.write("Request for path "+ pathname);
             response.write("\nDB connection successful\n");
+            response.end();
         }
         if(pathname == "/groupList"){
 
@@ -40,12 +41,12 @@ startServer = function(route) {
             
                 //process json properly - left out
 
-              //  var result = [];
-              //  for (var i = 0;i<groups.length;i++){
-              //      result.push({"groupName": groups[i].groupName});
+                var result = [];
+                for (var i = 0;i<groups.length;i++){
+                    result.push({"groupName": groups[i].groupName});
                     
-              //  }   
-              //  console.log("Result   "+result);
+                }   
+                console.log("Result   "+result.toJSON());
                 return result.toJSON();
             });
         
@@ -57,7 +58,7 @@ startServer = function(route) {
 
         if(pathname == "/chatHistory") getChatHistory();
 
-        response.end();
+        
 
     }
     mongooseDone = function(err) {
