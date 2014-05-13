@@ -41,13 +41,13 @@ startServer = function(route) {
                     result.push({groupName: groups[i].groupName});
                     console.log(result);
                 }   
-                return groupList;
+                return result;
             });
         
         
             response.write(JSON.stringify(groupList));
         }
-        
+
         if(pathname == "/chatHistory") getChatHistory();
 
         response.end();
