@@ -35,7 +35,7 @@ startServer = function(route) {
         }
         if(pathname == "/groupList"){
 
-            groupList = models.Group.find('groupName', function (err, groups){
+        models.Group.find('groupName', function (err, groups){
                 if (err){ throw err; } 
                  console.log("**Printing grouplist**\n "+groups);
             
@@ -43,23 +43,20 @@ startServer = function(route) {
 
                 var result = [];
                 for (var i = 0;i<groups.length;i++){
-                    result.push({"groupName": groups[i].groupName});
-                    
+                   // result.push({"groupName": groups[i].groupName});
+                   console.log("json : "+ groups[i].toJSON());
+                     result.push(groups[i].toJSON());
                 }   
-                console.log("Result   "+result.toJSON());
-                return result.toJSON();
-            });
-        
-            console.log("groupList   "+groupList);
-            response.writeHead(200, {"Content-Type": "application/json"});
-            response.write(JSON.stringify(groupList));
-            response.end();
+                console.log("------------Result   "+result);
+    
+                response.writeHead(200, {"Content-Type": "application/json"});
+                response.write(JSON.stringify(result));
+                response.end();
+
+            });                    
         }
 
         if(pathname == "/chatHistory") getChatHistory();
-
-        
-
     }
     mongooseDone = function(err) {
 
