@@ -35,6 +35,10 @@ startServer = function(route) {
             groupList = models.Group.find('groupName', function (err, groups){
                 if (err){ throw err; } 
                  console.log("**Printing grouplist**\n "+groups);
+                
+                for (var i = 0;i<groups.length;i++){
+                    console.log(groups[i].groupName);
+                }   
             });
         
            
