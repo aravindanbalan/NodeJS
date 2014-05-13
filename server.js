@@ -25,7 +25,7 @@ startServer = function(route) {
         var pathname = urlObject.parse(request.url).pathname;
         route(pathname);        
         console.log("Request for " + pathname + " received.");
-       
+       response.writeHead(200, {"Content-Type": "text/html"});
         response.write("Hello World, this is my first node JS application\n");
         response.write("Request for path "+ pathname);
         response.write("\nDB connection successful\n");
@@ -38,19 +38,19 @@ startServer = function(route) {
             
                 //process json properly - left out
 
-                var result = [];
-                for (var i = 0;i<groups.length;i++){
-                    result.push({"groupName": groups[i].groupName});
+              //  var result = [];
+              //  for (var i = 0;i<groups.length;i++){
+              //      result.push({"groupName": groups[i].groupName});
                     
-                }   
-                console.log("Result   "+result);
-                return result;
+              //  }   
+              //  console.log("Result   "+result);
+                return result.toJSON();
             });
         
         console.log("groupList   "+groupList);
-          //  response.writeHead(200, {"Content-Type": "application/json"});
-          //  response.write(JSON.stringify(groupList));
-         //   response.end();
+            response.writeHead(200, {"Content-Type": "application/json"});
+            response.write(JSON.stringify(groupList));
+            response.end();
         }
 
         if(pathname == "/chatHistory") getChatHistory();
