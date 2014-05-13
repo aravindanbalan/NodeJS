@@ -18,8 +18,9 @@ var db;
 
 /* server code */
 function startServer(route) {
-    
+    console.log(".....Inside Start Server........");
     function onRequest(request, response) {
+        console.log(".....Inside On Request........");
         var pathname = urlObject.parse(request.url).pathname;
         route(pathname);        
         console.log("Request for " + pathname + " received.");
@@ -32,20 +33,20 @@ function startServer(route) {
     }
     function mongooseDone(err)
     {
+        console.log(".....Inside Mongoose done, Starting server ........");
         http.createServer(onRequest).listen(port);        
     }
     mongoose_init(mongooseDone);
-console.log(".........................hello...............................");
+
 }
 
 mongoose_init = function(callback){
-
+console.log(".....Inside Mongo Init........");
     mongoose.connect('mongodb://aravindan:niji@ds043329.mongolab.com:43329/nijidb');
 
     db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function callback () {
-        // yay!
+   
         console.log("...............Connected to db.................");
         var query = { groupName: 'Dummy Group' };
         models.Group.findOneAndUpdate(query, {groupName: 'Dummy Group'},{upsert: true,"new": true },function(err, group)
@@ -53,7 +54,6 @@ mongoose_init = function(callback){
               console.log("...............created a dummy group in DB.................");  
         });
         callback(null);
-    });
 
 }
 
@@ -69,6 +69,5 @@ getChatHistory = function()
 
 
 //exports.start = startServer;
-
+console.log(".....Starting Server........");
 startServer(router.route)
-console.log(".........................hi...............................");
