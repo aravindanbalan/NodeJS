@@ -56,7 +56,28 @@ startServer = function(route) {
             });                    
         }
 
-        if(pathname == "/chatHistory") getChatHistory();
+        if(pathname == "/chatHistory"){
+
+             models.Chat.find('groupName', function (err, chats){
+                if (err){ throw err; } 
+                 console.log("**Printing grouplist**\n "+chats);
+            
+                //process json properly - left out
+
+                var history = [];
+                for (var i = 0;i<chats.length;i++){
+                   // result.push({"groupName": groups[i].groupName});
+                   console.log("json : "+ chats[i].toJSON());
+                     history.push(chats[i].toJSON());
+                }   
+                console.log("------------Chats History   "+history);
+    
+                response.writeHead(200, {"Content-Type": "application/json"});
+                response.write(JSON.stringify(history));
+                response.end();
+
+            });     
+        }
     }
     mongooseDone = function(err) {
 
@@ -75,23 +96,16 @@ console.log(".....Inside Mongo Init........");
     db.on('error', console.error.bind(console, 'connection error:'));
    
     console.log("...............Connected to db.................");
-    var query = { groupName: 'Dummy Group2' };
-    models.Group.findOneAndUpdate(query, {groupName: 'Dummy Group2'},{upsert: true,"new": true },function(err, group)
+    var query1 = { username: 'Anon9' };
+    
+    models.Chat.findOneAndUpdate(query1, {groupName: 'Dummy Group1',userName: "Anon1", message : "hello"},{upsert: true,"new": true },function(err, chat)
     {
-          console.log("...............created a dummy group in DB.................");  
+          console.log("...............created a dummy chat history in DB.................");  
     });
     callback(null);
 
 }
 
-getGroupList = function(){
-
-    console.log("......Inside get Group List......");
-}
-
-getChatHistory = function(){
-    
-}
 
 //exports.start = startServer;
 console.log(".....Starting Server........");
