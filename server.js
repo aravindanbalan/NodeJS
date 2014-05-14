@@ -24,7 +24,7 @@ startServer = function(route) {
         console.log(".....Inside On Request........");
         var pathname = urlObject.parse(request.url).pathname;
         var query = urlObject.parse(request.url,true).query;
-        console.log("Query param : "+query);
+        console.log("Query param : "+ query.group + " received.");
         route(pathname);        
         console.log("Request for " + pathname + " received.");
         if(pathname == "/")
