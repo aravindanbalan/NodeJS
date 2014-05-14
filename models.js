@@ -6,7 +6,7 @@ var groupsSchema = mongoose.Schema({
     groupName: String,
     members: [
     {
-    	type: mongoose.Schema.ObjectId, ref: "User"
+    	userName : String
    	}]
 
 });
@@ -16,22 +16,14 @@ var userSchema = mongoose.Schema({
     userName : String, 
     groups: [
     {  
-
-		type: mongoose.Schema.ObjectId, 
-		ref: "Group"
+		 groupName: String
     }]
 });
 
 var chatHistorySchema = mongoose.Schema({
 
-	userId : {
-    		type: mongoose.Schema.ObjectId, 
-    		ref: "User"
-    	},
-	groupId : {
-			type: mongoose.Schema.ObjectId, 
-    		ref: "Group"
-	},
+	userName : String,
+    groupName: String,
 	message : String,
 	timestamp : Date
 
