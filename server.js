@@ -23,57 +23,82 @@ startServer = function(route) {
    onRequest = function(request, response) {
         var reqMethod=request.method;
         console.log("******Request method : "+reqMethod);
-        console.log(".....Inside On Request........");
-        var urlComp = urlObject.parse(request.url,true);
-        var pathname = urlComp.pathname;
-        var query = urlComp.query;
-     
-        
-        route(pathname);        
-        console.log("Request for " + pathname + " received.");
-        if(pathname == "/")
+        if(reqMethod == "GET")
         {
-            response.writeHead(200, {"Content-Type": "text/html"});
-            response.write("Hello World, this is my first node JS application\n");
-            response.write("Request for path "+ pathname);
-            response.write("\nDB connection successful\n");
-            response.end();
-        }
-        if(pathname == "/groupList"){
-
-        models.Group.find('groupName', function (err, groups){
-                if (err){ throw err; } 
-                 console.log("**Printing grouplist**\n "+groups);
+            console.log(".....Inside On Request........");
+            var urlComp = urlObject.parse(request.url,true);
+            var pathname = urlComp.pathname;
+            var query = urlComp.query;
+         
             
-                //process json properly - left out
-
-                var result = [];
-                for (var i = 0;i<groups.length;i++){
-                   // result.push({"groupName": groups[i].groupName});
-                   console.log("json : "+ groups[i].toJSON());
-                     result.push(groups[i].toJSON());
-                }   
-                console.log("------------Result   "+result);
-    
-                response.writeHead(200, {"Content-Type": "application/json"});
-                response.write(JSON.stringify(result));
-                response.end();
-
-            });                    
-        }
-
-        if(pathname == "/chatHistory"){
-            console.log("Query param : "+ query.group + " received.");
-
-            if(query.group != undefined && query.group !=null && query.group != "all")
+            route(pathname);        
+            console.log("Request for " + pathname + " received.");
+            if(pathname == "/")
             {
-                    var queryGroupName = query.group;
-                    console.log("Group name received : "+ queryGroupName);
-                     models.Chat.find({"groupName": queryGroupName}, function (err, chats){
-                        
+                response.writeHead(200, {"Content-Type": "text/html"});
+                response.write("Hello World, this is my first node JS application\n");
+                response.write("Request for path "+ pathname);
+                response.write("\nDB connection successful\n");
+                response.end();
+            }
+            if(pathname == "/groupList"){
+
+            models.Group.find('groupName', function (err, groups){
+                    if (err){ throw err; } 
+                     console.log("**Printing grouplist**\n "+groups);
+                
+                    //process json properly - left out
+
+                    var result = [];
+                    for (var i = 0;i<groups.length;i++){
+                       // result.push({"groupName": groups[i].groupName});
+                       console.log("json : "+ groups[i].toJSON());
+                         result.push(groups[i].toJSON());
+                    }   
+                    console.log("------------Result   "+result);
+        
+                    response.writeHead(200, {"Content-Type": "application/json"});
+                    response.write(JSON.stringify(result));
+                    response.end();
+
+                });                    
+            }
+
+            if(pathname == "/chatHistory"){
+                console.log("Query param : "+ query.group + " received.");
+
+                if(query.group != undefined && query.group !=null && query.group != "all")
+                {
+                        var queryGroupName = query.group;
+                        console.log("Group name received : "+ queryGroupName);
+                         models.Chat.find({"groupName": queryGroupName}, function (err, chats){
+                            
+                            if (err){ throw err; } 
+                            console.log("**Printing grouplist**\n "+chats); 
+                            
+                            var history = [];
+                            for (var i = 0;i<chats.length;i++){
+                               // result.push({"groupName": groups[i].groupName});
+                               console.log("json : "+ chats[i].toJSON());
+                                 history.push(chats[i].toJSON());
+                            }   
+                            console.log("------------Chats History   "+history);
+                
+                            response.writeHead(200, {"Content-Type": "application/json"});
+                            response.write(JSON.stringify(history));
+                            response.end();
+
+
+                         });
+                }
+                else if(query.group != undefined && query.group !=null && query.group == "all")
+                {
+                     models.Chat.find('groupName', function (err, chats){
                         if (err){ throw err; } 
-                        console.log("**Printing grouplist**\n "+chats); 
-                        
+                         console.log("**Printing grouplist**\n "+chats);
+                    
+                        //process json properly - left out
+
                         var history = [];
                         for (var i = 0;i<chats.length;i++){
                            // result.push({"groupName": groups[i].groupName});
@@ -86,33 +111,18 @@ startServer = function(route) {
                         response.write(JSON.stringify(history));
                         response.end();
 
-
-                     });
+                    });
+                }     
             }
-            else if(query.group != undefined && query.group !=null && query.group == "all")
-            {
-                 models.Chat.find('groupName', function (err, chats){
-                    if (err){ throw err; } 
-                     console.log("**Printing grouplist**\n "+chats);
-                
-                    //process json properly - left out
-
-                    var history = [];
-                    for (var i = 0;i<chats.length;i++){
-                       // result.push({"groupName": groups[i].groupName});
-                       console.log("json : "+ chats[i].toJSON());
-                         history.push(chats[i].toJSON());
-                    }   
-                    console.log("------------Chats History   "+history);
-        
-                    response.writeHead(200, {"Content-Type": "application/json"});
-                    response.write(JSON.stringify(history));
-                    response.end();
-
-                });
-            }     
         }
-    }
+    } //get
+    else if(reqMethod == "POST")
+    {
+        response.writeHead(200, {"Content-Type": "text/html"});
+        response.write("Inside post\n");
+        response.write("Request for path "+ pathname);
+        response.end();
+    } //post
     mongooseDone = function(err) {
 
         console.log(".....Inside Mongoose done, Starting server ........");
