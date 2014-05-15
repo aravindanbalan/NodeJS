@@ -18,14 +18,12 @@ var groupListJSON;
 //});
 
 /* server code */
-startServer = function(route) {
+startServer = function(route){
     console.log(".....Inside Start Server........");
    onRequest = function(request, response) {
         var reqMethod=request.method;
         console.log("******Request method : "+reqMethod);
-
         if(reqMethod == "GET"){
-
         console.log(".....Inside On Request........");
         var urlComp = urlObject.parse(request.url,true);
         var pathname = urlComp.pathname;
@@ -116,9 +114,13 @@ startServer = function(route) {
             }     
         }
         }//get
-        else if(reqMethod == "POST"){
-            
+        else if (reqMethod == "POST"){
+
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write("Inside post\n");
+            response.end();
         }
+   
     }//onrequest
 
     mongooseDone = function(err) {
@@ -128,7 +130,7 @@ startServer = function(route) {
     }
     mongoose_init(mongooseDone);
 
-}//start server
+}
 
 mongoose_init = function(callback){
 console.log(".....Inside Mongo Init........");
