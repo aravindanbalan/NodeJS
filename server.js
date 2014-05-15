@@ -130,7 +130,7 @@ console.log(".....Inside Mongo Init........");
     db.on('error', console.error.bind(console, 'connection error:'));
    
     console.log("...............Connected to db.................");
-    var query1 = { userN    ame: 'Anon9' };
+    var query1 = { userName: 'Anon9' };
     
     models.Chat.findOneAndUpdate(query1, {groupName: 'Dummy Group1',userName: "Anon1", message : "hello"},{upsert: true,"new": true },function(err, chat)
     {
