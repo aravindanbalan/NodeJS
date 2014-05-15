@@ -21,6 +21,8 @@ var groupListJSON;
 startServer = function(route) {
     console.log(".....Inside Start Server........");
    onRequest = function(request, response) {
+        var reqMethod=request.method;
+        console.log("******Request method : "+reqMethod);
         console.log(".....Inside On Request........");
         var urlComp = urlObject.parse(request.url,true);
         var pathname = urlComp.pathname;
@@ -128,7 +130,7 @@ console.log(".....Inside Mongo Init........");
     db.on('error', console.error.bind(console, 'connection error:'));
    
     console.log("...............Connected to db.................");
-    var query1 = { username: 'Anon9' };
+    var query1 = { userN    ame: 'Anon9' };
     
     models.Chat.findOneAndUpdate(query1, {groupName: 'Dummy Group1',userName: "Anon1", message : "hello"},{upsert: true,"new": true },function(err, chat)
     {

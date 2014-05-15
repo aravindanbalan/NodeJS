@@ -25,7 +25,7 @@ var chatHistorySchema = mongoose.Schema({
 	userName : String,
     groupName: String,
 	message : String,
-	timestamp : Date
+	timestamp : String
 
 });
 
