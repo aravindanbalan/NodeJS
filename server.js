@@ -132,8 +132,9 @@ startServer = function(route){
                     var byUser = query.user;
                     var time = query.timestamp;
                     var msg = query.msg;
+                    var order = query.order;
 
-                    models.Chat.findOneAndUpdate({},{groupName: toGroup, userName: byUser, message : msg, timestamp : time},{upsert: true,"new": true }, function (err, chats){
+                    models.Chat.findOneAndUpdate({},{groupName: toGroup, userName: byUser, message : msg, timestamp : time, order : order},{upsert: true,"new": true }, function (err, chats){
                         if (err){ throw err; } 
                         
                         console.log("......Chats "+chats);
