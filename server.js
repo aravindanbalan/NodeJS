@@ -127,15 +127,14 @@ startServer = function(route){
                 console.log("Command received : "+ query.cmd + " received.");
                 var command = query.cmd;
                 if(command == "addMsg")
-                {
-                    var key = 'someId';
+                {     
                     var toGroup = query.group;
                     var byUser = query.user;
                     var time = query.timestamp;
                     var msg = query.msg;
-                    var msgorder = query.order;
+                    var msgorder = ""+query.order;
 
-                    models.Chat.findOneAndUpdate({},{groupName: toGroup, userName: byUser, message : msg, timestamp : time, order : msgorder},{"new": true }, function (err, chats){
+                    models.Chat.findOneAndUpdate({},{groupName: toGroup, userName: byUser, message : msg, timestamp : time, order : msgorder},{"upsert" : true,"new": true }, function (err, chats){
                         if (err){ throw err; } 
                         
                         console.log("......Chats "+chats);
