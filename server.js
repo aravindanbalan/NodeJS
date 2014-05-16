@@ -79,7 +79,7 @@ startServer = function(route){
                                console.log("json : "+ chats[i].toJSON());
                                  history.push(chats[i].toJSON());
                             }   
-                            console.log("------------Chats History   "+history);
+                            console.log("------------Chats History   "+JSON.stringify(history));
                 
                             response.writeHead(200, {"Content-Type": "application/json"});
                             response.write(JSON.stringify(history));
