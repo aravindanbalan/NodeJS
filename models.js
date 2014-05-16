@@ -23,7 +23,7 @@ var userSchema = mongoose.Schema({
 var chatHistorySchema = mongoose.Schema({
 
 	userName : String,
-    order : Integer,
+    order : Number,
     groupName: String,
 	message : String,
 	timestamp : String
