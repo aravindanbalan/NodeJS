@@ -135,7 +135,7 @@ startServer = function(route){
                     var msgorder = ""+query.order;
 
                     var chatData  = {groupName: toGroup, userName: byUser, message : msg, timestamp : time, order : msgorder};
-                    var chat = new model.Chat(chatData);
+                    var chat = new models.Chat(chatData);
                     chat.save(function (err, chats){
                         if (err){ throw err; } 
                         
