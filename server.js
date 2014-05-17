@@ -134,7 +134,9 @@ startServer = function(route){
                     var msg = query.msg;
                     var msgorder = ""+query.order;
 
-                    models.Chat.insert({groupName: toGroup, userName: byUser, message : msg, timestamp : time, order :msgorder}, function (err, chats){
+                    var chatData  = {groupName: toGroup, userName: byUser, message : msg, timestamp : time, order : msgorder};
+                    var chat = new model.Chat(chatData);
+                    chat.save(function (err, chats){
                         if (err){ throw err; } 
                         
                         console.log("......Chats "+chats);
