@@ -138,7 +138,8 @@ startServer = function(route){
                     var chat = new models.Chat(chatData);
                     chat.save(function (err, chats){
                         if (err){ throw err; } 
-                        
+                        response.write("\nSave successful\n");
+                        response.end();
                         console.log("......Chats "+chats);
                     });
                 }
